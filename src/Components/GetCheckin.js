@@ -46,7 +46,7 @@ const GetCheckin = ({reload}) => {
     };
 
     fetchCheckins();
-  }, [reload]);
+  }, [reload])
 
   const handleCardClick = (checkin) => {
     setSelectedCheckin(checkin);
@@ -60,6 +60,7 @@ const GetCheckin = ({reload}) => {
     setreload(!reloadfetch)
     console.log('i am fetch comopnet')
   },[reload])
+  console.log(checkins)
   if (loading) {
     return (
         <Box
