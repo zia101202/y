@@ -22,9 +22,10 @@ const getOrdinalSuffix = (day) => {
   return "th";
 };
 
-const GetCheckin = () => {
+const GetCheckin = ({reload}) => {
   const [checkins, setCheckins] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [reloadfetch, setreload] = useState(true);
   const [selectedCheckin, setSelectedCheckin] = useState(null);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const GetCheckin = () => {
     };
 
     fetchCheckins();
-  }, []);
+  }, [reload]);
 
   const handleCardClick = (checkin) => {
     setSelectedCheckin(checkin);
@@ -55,6 +56,10 @@ const GetCheckin = () => {
     setSelectedCheckin(null);
   };
 
+  useEffect(()=>{
+    setreload(!reloadfetch)
+    console.log('i am fetch comopnet')
+  },[reload])
   if (loading) {
     return (
         <Box

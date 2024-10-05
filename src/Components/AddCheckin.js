@@ -3,13 +3,15 @@ import React, { useState, useRef } from 'react';
 import { Box, TextField, Button, Typography, Grid, Paper } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloseIcon from '@mui/icons-material/Close';
-
-const AddCheckin = ({ setShowForm ,setreloaddata}) => {
+import { CircularProgress } from '@mui/material';
+import {  Snackbar, Alert } from '@mui/material';
+const AddCheckin = ({ setShowForm ,handlereload}) => {
     const [title, setTitle] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
     const [message, setMessage] = useState('');
     const fileInputRef = useRef(null);
-
+    const [loading,setloading]=useState(false);
+    const [open, setOpen] = useState(false);
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         setSelectedImage(file);
@@ -25,6 +27,8 @@ const AddCheckin = ({ setShowForm ,setreloaddata}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setloading(true);
+        
         if (!selectedImage) {
             setMessage('Please select an image to upload.');
             return;
@@ -47,7 +51,10 @@ const AddCheckin = ({ setShowForm ,setreloaddata}) => {
                 setShowForm(false);
                 setTitle('');
                 setSelectedImage(null);
-                setreloaddata(true)
+                handlereload();
+                setloading(false);
+                setOpen(true);
+                console.log(open)
             } else {
                 setMessage(`Error: ${result.message}`);
             }
@@ -60,8 +67,49 @@ const AddCheckin = ({ setShowForm ,setreloaddata}) => {
         fileInputRef.current.click();
     };
 
+
+
+   
+
+  
+    
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return; 
+      }
+      setOpen(false);
+    };
     return (
-        <Box
+<>
+
+<Snackbar
+        open={open}
+        autoHideDuration={14000} // Auto hide after 3 seconds
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} // Positioning the Snackbar
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Action completed successfully!
+        </Alert>
+      </Snackbar>
+        {loading ? <Box
+            sx={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                zIndex: 9999
+            }}
+        >
+            <CircularProgress />
+        </Box>:
+
+           ( <Box
             sx={{
                 position: 'fixed',
                 top: 0,
@@ -207,7 +255,9 @@ const AddCheckin = ({ setShowForm ,setreloaddata}) => {
                     )}
                 </Box>
             </Box>
-        </Box>
+        </Box>)
+        }
+        </>
     );
 };
 

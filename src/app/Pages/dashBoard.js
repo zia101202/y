@@ -11,6 +11,10 @@ export default function Dashboard() {
   const handleToggleForm = () => {
     setShowForm(!showForm);
   };
+  const handlereload=()=>{
+    setreloaddata(!reload)
+    console.log('hi am ')
+  }
 
   return (
     <>
@@ -107,12 +111,12 @@ export default function Dashboard() {
           </Button>
 
           <Box sx={{ marginTop: 3 }}>
-            <GetCheckin />
+            <GetCheckin reload={reload}/>
           </Box>
 
           {showForm && (
             <Box sx={{ marginTop: 3 }}>
-              <AddCheckin setShowForm={setShowForm} setreloaddata={setreloaddata} />
+              <AddCheckin setShowForm={setShowForm} handlereload={handlereload} />
             </Box>
           )}
         </Box>
