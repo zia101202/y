@@ -5,6 +5,10 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloseIcon from '@mui/icons-material/Close';
 import { CircularProgress } from '@mui/material';
 import {  Snackbar, Alert } from '@mui/material';
+
+
+
+
 const AddCheckin = ({ setShowForm ,handlereload}) => {
     const [title, setTitle] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
@@ -24,7 +28,7 @@ const AddCheckin = ({ setShowForm ,handlereload}) => {
             setSelectedImage(file);
         }
     };
-
+    const BaseUrl = process.env.NEXT_PUBLIC_BaseUrl
     const handleSubmit = async (e) => {
         e.preventDefault();
         setloading(true);
@@ -37,9 +41,9 @@ const AddCheckin = ({ setShowForm ,handlereload}) => {
         const formData = new FormData();
         formData.append('image', selectedImage);
         formData.append('title', title);
-
+console.log(BaseUrl)
         try {
-            const res = await fetch('/api/addCheck', {
+            const res = await fetch(`${BaseUrl}/api/addCheck`, {
                 method: 'POST',
                 body: formData,
             });
