@@ -20,7 +20,9 @@ const AddCheckin = ({ setShowForm ,handlereload}) => {
         const file = event.target.files[0];
         setSelectedImage(file);
     };
-
+    res.setHeader('Access-Control-Allow-Origin', '*');  // Allow all origins, or specify your origin here
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     const handleDrop = (event) => {
         event.preventDefault();
         const file = event.dataTransfer.files[0];
@@ -45,6 +47,7 @@ console.log(BaseUrl)
         try {
             const res = await fetch(`${BaseUrl}/api/addCheck`, {
                 method: 'POST',
+                mode: 'no-cors', 
                 body: formData,
             });
 

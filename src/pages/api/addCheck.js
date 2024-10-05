@@ -33,6 +33,9 @@ export const config = {
 
 
 export default function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');  // Allow all origins, or specify your origin here
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   upload.single('image')(req, res, async (err) => {
     if (err) {
       return res.status(500).json({ error: 'Something went wrong while uploading' });
