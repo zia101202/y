@@ -43,7 +43,7 @@ const AddCheckin = ({ setShowForm ,handlereload}) => {
         formData.append('title', title);
 console.log(BaseUrl)
         try {
-            const res = await fetch(`${BaseUrl}/api/addCheck`, {
+            const res = await fetch(`/api/addCheck`, {
                 method: 'POST',
                 mode: 'no-cors', 
                 body: formData,
