@@ -22,7 +22,7 @@ const getOrdinalSuffix = (day) => {
   return "th";
 };
 
-const GetCheckin = ({reload}) => {
+const GetCheckin = ({ reload }) => {
   const [checkins, setCheckins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [reloadfetch, setreload] = useState(true);
@@ -31,13 +31,9 @@ const GetCheckin = ({reload}) => {
   useEffect(() => {
     const fetchCheckins = async () => {
       try {
-        const checkinCollection = collection(db, 'zia');
-        const checkinSnapshot = await getDocs(checkinCollection);
-        const checkinList = checkinSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setCheckins(checkinList);
+        const response = await fetch('/api/getCheckin')
+         const checkinList= await response.json()
+        setCheckins(checkinList.data);
         setLoading(false);
       } catch (e) {
         console.error('Error fetching check-ins: ', e);
@@ -56,29 +52,29 @@ const GetCheckin = ({reload}) => {
     setSelectedCheckin(null);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setreload(!reloadfetch)
     console.log('i am fetch comopnet')
-  },[reload])
+  }, [reload])
   console.log(checkins)
   if (loading) {
     return (
-        <Box
-            sx={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                zIndex: 9999
-            }}
-        >
-            <CircularProgress />
-        </Box>
+      <Box
+        sx={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          zIndex: 9999
+        }}
+      >
+        <CircularProgress />
+      </Box>
     );
   }
 
@@ -90,7 +86,7 @@ const GetCheckin = ({reload}) => {
         Added CheckIns
       </Typography>
 
-      {selectedCheckin && 
+      {selectedCheckin &&
         <Box>
           <Details checkin={selectedCheckin} close={handleCloseDetails} />
         </Box>

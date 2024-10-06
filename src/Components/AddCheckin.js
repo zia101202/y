@@ -41,7 +41,7 @@ const AddCheckin = ({ setShowForm ,handlereload}) => {
         const formData = new FormData();
         formData.append('image', selectedImage);
         formData.append('title', title);
-console.log(BaseUrl)
+
         try {
             const res = await fetch(`/api/addCheck`, {
                 method: 'POST',
