@@ -42,7 +42,7 @@ const GetCheckin = ({ reload }) => {
     };
 
     fetchCheckins();
-  }, [reload])
+  },[reloadfetch] )
 
   const handleCardClick = (checkin) => {
     setSelectedCheckin(checkin);

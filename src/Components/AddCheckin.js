@@ -28,7 +28,7 @@ const AddCheckin = ({ setShowForm ,handlereload}) => {
             setSelectedImage(file);
         }
     };
-    const BaseUrl = process.env.NEXT_PUBLIC_BaseUrl
+    const BaseUrl = process.env.PUBLIC_BaseUrl
     const handleSubmit = async (e) => {
         e.preventDefault();
         setloading(true);
